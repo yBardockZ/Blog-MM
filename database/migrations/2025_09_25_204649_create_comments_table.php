@@ -15,13 +15,9 @@ return new class extends Migration
             $table->id();
             $table->text('content');
             $table->foreignId('post_id')->constrained('posts')->onDelete('cascade');
-            $table->string('author_name');
+            $table->foreignId('author_id')->constrained('users')->onDelete('cascade');
             $table->timestamp('created_at')->useCurrent();
 
-            $table->foreign('author_name')
-            ->references('name')
-            ->on('users')
-            ->onDelete('cascade');
         });
     }
 
