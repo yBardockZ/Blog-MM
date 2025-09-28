@@ -12,18 +12,10 @@
     </div>
 
     <div class="row">
-        <div class="col-md-4">
-            <h2>Últimos Posts</h2>
-            <p>Conteúdo dinâmico de posts entrará aqui.</p>
-        </div>
-        <div class="col-md-4">
-            <h2>Sobre Nós</h2>
-            <p>Mais informações sobre o projeto.</p>
-        </div>
-        <div class="col-md-4">
-            <h2>Contato</h2>
-            <p>Fale conosco.</p>
-        </div>
+        @foreach($posts as $post)
+            @include('components.post-card', ['post' => $post])
+        @endforeach
+        
     </div>
 
 @endsection
