@@ -24,7 +24,7 @@
                     {{-- O ícone desejado (bi-chat-dots para balão de fala) --}}
                     <i class="bi bi-chat-dots me-1"></i> 
                     {{-- Número de comentários (Exemplo: 5) --}}
-                    <a href="#">{{ $post->comments->count()}} Comentários</a>
+                    <span href="#">{{ $post->comments->count()}} Comentários</span>
                 </small>
             </div>
         </div>
