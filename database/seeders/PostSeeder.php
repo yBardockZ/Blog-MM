@@ -18,6 +18,7 @@ class PostSeeder extends Seeder
             'title' => 'Primeiro Post',
             'content' => 'Conteúdo do Primeiro Post',
             'published' => true,
+            'image' => 'post1.png',
             'author_id' => 1,
             'category_id' => 1
         ]);
@@ -26,6 +27,7 @@ class PostSeeder extends Seeder
             'title' => 'Segundo Post',
             'content' => 'Conteúdo do Segundo Post',
             'published' => true,
+            'image' => 'post2.png',
             'author_id' => 1,
             'category_id' => 2
         ]);

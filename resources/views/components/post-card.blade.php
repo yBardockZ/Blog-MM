@@ -1,7 +1,7 @@
 <div class="col-md-6 mb-4">
     <div class="card shadow-sm h-100">
         {{-- Imagem de exemplo. Em um projeto real, você usaria {{ $post->image_url }} --}}
-        <img id = "post-card-image" src="https://cdn.discordapp.com/attachments/923024926527606887/1419911446187479040/Screenshot_20250923_020056_Google.jpg?ex=68dabb55&is=68d969d5&hm=877c119644fba0b74774115a9c866efc910c6109f2503d622b9d509cd0e07228&" class="card-img-top" alt="Imagem da Postagem">
+        <img id = "post-card-image" src="{{ asset('/images/posts/'.$post->image) }}">
         
         <div class="card-body d-flex flex-column">
             {{-- Título da Postagem --}}

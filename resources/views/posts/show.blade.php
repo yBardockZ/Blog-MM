@@ -22,7 +22,7 @@
 
                 {{-- Imagem Principal --}}
                 <figure class="mb-4">
-                    <img class="img-fluid rounded" src=""
+                    <img class="img-fluid rounded" src="{{ asset('/images/posts/'.$post->image) }}"
                         alt="{{ $post->title }}" />
                 </figure>
 
