@@ -35,7 +35,7 @@ class Post extends Model
         return $this->belongsTo(Category::class);
     }
 
-    public function tag() {
+    public function tags() {
         return $this->hasMany(Tag::class, 'post_tag', 'post_id', 'tag_id');
     }
 

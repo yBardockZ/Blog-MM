@@ -15,7 +15,7 @@
             {{-- Rodapé do Card (Alinhado ao final) --}}
             <div class="mt-auto d-flex justify-content-between align-items-center">
                 {{-- Botão para Ler Mais --}}
-                <a href="/posts/{{ $post->id }}" class="btn btn-sm btn-primary">
+                <a href="{{ route('posts.show', $post->id) }}" class="btn btn-sm btn-primary">
                     Ler Post
                 </a>
                 
