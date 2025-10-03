@@ -27,20 +27,6 @@
                         </li>
                     @endauth
                 </ul>
-
-                {{-- FORMULÁRIO DE PESQUISA (NOVO) --}}
-                <form class="d-flex" action="#" method="GET"> {{-- Substitua '#' pela rota de busca --}}
-                    <input 
-                        class="form-control me-2" 
-                        type="search" 
-                        placeholder="Pesquisar posts..." 
-                        aria-label="Pesquisar" 
-                        name="query" {{-- O nome do parâmetro que será enviado na URL (ex: ?query=laravel) --}}
-                    >
-                    <button class="btn btn-outline-success" type="submit">
-                        <i class="bi bi-search"></i> Pesquisar
-                    </button>
-                </form>
                 {{-- FIM FORMULÁRIO DE PESQUISA --}}
             </div>
         </div>

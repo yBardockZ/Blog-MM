@@ -8,10 +8,25 @@ use App\Models\Post;
 class PostController extends Controller
 {
 
-    public function index() {
-        $post = Post::All();
+    public function index(Request $request) {
 
-        return view('welcome', ['posts' => $post]);
+        $query = Post::query();
+        $search = null;
+
+        if ($request->filled('search')) {
+            $search = $request->search;
+
+            $query->where(function($q) use ($search) {
+                $q->where('title', 'like', "%{$search}%")
+                ->orWhere('content', 'like', "%{$search}%");
+            });
+
+            $posts = $query->paginate(10);
+        } else {
+            $posts = $query->paginate(10);
+        }
+
+        return view('welcome', ['posts' => $posts, 'search' => $search]);
     }
     
     public function show($id) {

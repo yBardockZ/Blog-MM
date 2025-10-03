@@ -11,7 +11,7 @@
                 <header class="mb-4">
                     <h1 class="fw-bolder mb-1">{{ $post->title }}</h1>
                     <div class="text-muted fst-italic mb-2">
-                        Postado em {{ $post->created_at->format('d/m/Y') }}
+                        Postado em {{ $post->created_at->format('d/m/Y  H:i') }}
                     </div>
 
                     {{-- Tags (Você implementará isso depois) --}}

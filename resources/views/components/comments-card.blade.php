@@ -5,7 +5,7 @@
         {{-- Metadados --}}
         <p class="card-text fw-bold">
             {{ $comment->author->name }} -
-            {{ $comment->created_at->format('d/m/Y') }}
+            {{ $comment->created_at->format('d/m/Y  H:i') }}
         </p>
 
         {{-- 1. VISUALIZAÇÃO DO COMENTÁRIO (Inicialmente visível) --}}
