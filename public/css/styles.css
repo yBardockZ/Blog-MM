@@ -1,0 +1,6 @@
+/* Post Cards */
+
+#post-card-image {
+    height: 500px;
+    object-fit: cover;
+}
