@@ -15,10 +15,10 @@
                         <a class="nav-link active" aria-current="page" href="{{ url('/') }}">Home</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Posts</a>
+                        <a class="nav-link" href="#">Contato</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Contato</a>
+                        <a class="nav-link" href="{{ route('posts.create') }}">Criar Post</a>
                     </li>
                     {{-- Links de Autenticação --}}
                     @auth
@@ -27,7 +27,9 @@
                         </li>
                     @endauth
                 </ul>
+                
                 {{-- FIM FORMULÁRIO DE PESQUISA --}}
+                
             </div>
         </div>
     </nav>
