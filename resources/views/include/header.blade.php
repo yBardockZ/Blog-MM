@@ -45,7 +45,10 @@
                         <li class="nav-item">
                             <form method="POST" action="{{ route('logout') }}" class="d-flex">
                                 @csrf
-                                <button type="submit" class="btn btn-link nav-link">
+                                <button type="submit" 
+                                class="btn btn-link nav-link"
+                                onclick="event.preventDefault();
+                                                this.closest('form').submit();">
                                     Logout
                                 </button>
                             </form>

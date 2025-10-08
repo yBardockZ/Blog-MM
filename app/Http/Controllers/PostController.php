@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Post;
 use App\Models\Tag;
 use App\Models\Category;
+use Illuminate\Support\Facades\Auth;
 
 class PostController extends Controller
 {
@@ -42,6 +43,8 @@ class PostController extends Controller
         $tags = Tag::all();
         $categories = Category::all();
 
+        
+
         return view('posts.create', ['tags' => $tags, 'categories' => $categories]);
 
     }
@@ -52,8 +55,10 @@ class PostController extends Controller
         $post->title = $request->title;
         $post->content = $request->content;
         $post->published = true;
-        $post->author_id = 1;
         $post->category_id = $request->category_id;
+
+        $user = Auth::user();
+        $post->author_id = $user->id;
 
         if ($request->hasFile('image')) {
             $requestImage = $request->image;
@@ -74,6 +79,11 @@ class PostController extends Controller
         }
         
         return redirect()->route('posts.index')->with('msg', 'Post criado com sucesso!');
+    }
+
+    public function dashboard(Request $request) {
+
+
     }
 
 }
