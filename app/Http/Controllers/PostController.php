@@ -7,6 +7,7 @@ use App\Models\Post;
 use App\Models\Tag;
 use App\Models\Category;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 class PostController extends Controller
 {
@@ -141,6 +142,20 @@ class PostController extends Controller
         $post->tags()->sync($request->tags);
 
         return redirect()->route('dashboard')->with('msg', 'Post atualizado com sucesso!');
+    }
+
+    public function destroy($id) {
+        $post = Post::where('id', $id)
+            ->where('author_id', Auth::user()->id)
+            ->firstOrFail();
+
+        if ($post->image && Storage::disk('public')->exists('images/posts/' . $post->image)) {
+            Storage::disk('public')->delete('images/posts/' . $post->image);
+        }
+
+        $post->delete();
+
+        return redirect()->route('dashboard')->with('msg', 'Post removido com sucesso!');
     }
 
     private function imageNameGeneration($image) {
