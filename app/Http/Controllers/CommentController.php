@@ -22,19 +22,23 @@ class CommentController extends Controller
     }
 
     public function destroy($id) {
-        $comment = Comment::where('id', $id)
-            ->where('author_id', Auth::user()->id)
-            ->firstOrFail();
+        $comment = Comment::findOrFail($id);
+
+        if (Auth::user()->id != $comment->author_id && Auth::user()->id != $comment->post->author_id) {
+            abort(403, 'Você não tem permissão para deletar este comentário.');
+        }
 
         $comment->delete();
 
-        return redirect('/posts/'.$comment->post_id)->with('msg', 'Comentário removido!');
+        return redirect()->route('posts.show', $comment->post_id)->with('msg', 'Comentário removido!');
     }
 
     public function update(Request $request, $id) {
-        $comment = Comment::where('id', $id)
-            ->where('author_id', Auth::user()->id)
-            ->firstOrFail();
+        $comment = Comment::findOrFail($id);
+
+        if (Auth::user()->id != $comment->author_id && Auth::user()->id != $comment->post->author_id) {
+            abort(403, 'Você não tem permissão para deletar este comentário.');
+        }
 
         $comment->content = $request->content;
         $comment->save();
