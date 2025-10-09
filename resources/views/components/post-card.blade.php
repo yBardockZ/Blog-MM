@@ -14,11 +14,15 @@
             
             {{-- Rodapé do Card (Alinhado ao final) --}}
             <div class="mt-auto d-flex justify-content-between align-items-center">
-                {{-- Botão para Ler Mais --}}
-                <a href="{{ route('posts.show', $post->id) }}" class="btn btn-sm btn-primary">
-                    Ler Post
-                </a>
-                
+
+                @if(isset($actions))
+                    {!! $actions !!}
+                @else
+                    {{-- Botão para Ler Mais --}}
+                    <a href="{{ route('posts.show', $post->id) }}" class="btn btn-sm btn-primary">
+                        Ler Post
+                    </a>
+                @endif             
                 {{-- Ícone e Contador de Comentários --}}
                 <small class="text-secondary d-flex align-items-center">
                     {{-- O ícone desejado (bi-chat-dots para balão de fala) --}}

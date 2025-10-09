@@ -43,7 +43,7 @@ class PostController extends Controller
         $tags = Tag::all();
         $categories = Category::all();
 
-        
+
 
         return view('posts.create', ['tags' => $tags, 'categories' => $categories]);
 
@@ -62,10 +62,7 @@ class PostController extends Controller
 
         if ($request->hasFile('image')) {
             $requestImage = $request->image;
-
-            $requestExtension = $requestImage->extension();
-
-            $imageName = md5($requestImage->getClientOriginalName() . time()) . $requestExtension;
+            $imageName = $this->imageNameGeneration($requestImage);
 
             $requestImage->move(public_path('images/posts'), $imageName);
 
@@ -82,8 +79,76 @@ class PostController extends Controller
     }
 
     public function dashboard(Request $request) {
+        $user = Auth::user();
+        $query = Post::where('author_id', $user->id);
 
+        $search = null;
 
+        if ($request->filled('search')) {
+            $search = $request->search;
+
+            $query = Post::where('title', 'like', "%{$search}%")->where('author_id', $user->id);
+        }
+
+        $posts = $query->latest()->paginate(10);
+
+        return view('dashboard', ['posts' => $posts, 'search' => $search]);
+
+    }
+
+    public function edit($id) {
+        $user = Auth::user();
+        $post = Post::where('id', $id)
+            ->where('author_id', $user->id)
+            ->firstOrFail();
+
+        $tags = Tag::all();
+        $categories = Category::all();
+
+        return view('posts.edit', ['post' => $post, 'tags' => $tags, 'categories' => $categories]);
+    }
+
+    public function update(Request $request, $id) {
+        $post = Post::where('id', $id)
+            ->where('author_id', Auth::user()->id)
+            ->firstOrFail();
+
+        $validatedData = $request->validate([
+        'title' => 'required|max:255',
+        'content' => 'required',
+        'category_id' => 'required|exists:categories,id',
+        'image' => 'nullable|image|max:2048', // Opcional: Nova imagem
+        'tags' => 'array',
+        'tags.*' => 'exists:tags,id',
+        ]);
+
+        $post->title = $request->title;
+        $post->content = $request->content;
+        $post->published = true;
+        $post->category_id = $request->category_id;
+
+        if ($request->hasFile('image')) {
+            $requestImage = $request->image;
+            $imageName = $this->imageNameGeneration($requestImage);
+
+            $requestImage->move(public_path('images/posts'), $imageName);
+
+            $post->image = $imageName;
+        }
+
+        $post->update($validatedData);
+
+        $post->tags()->sync($request->tags);
+
+        return redirect()->route('dashboard')->with('msg', 'Post atualizado com sucesso!');
+    }
+
+    private function imageNameGeneration($image) {
+        $imageExtension = $image->extension();
+            
+        $imageName = md5($image->getClientOriginalName() . time()) . $imageExtension;
+
+        return $imageName;
     }
 
 }
