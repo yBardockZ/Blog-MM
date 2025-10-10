@@ -8,7 +8,7 @@
             <h5 class="card-title">{{ $post->title }}</h5>
             
             {{-- Resumo / Corpo da Postagem --}}
-            <p class="card-text text-muted">
+            <p class="card-text text-muted" id="text-truncate-lines">
                 {{ $post->content }}
             </p>
             

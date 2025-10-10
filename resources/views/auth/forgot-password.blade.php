@@ -1,25 +1,47 @@
 <x-guest-layout>
-    <div class="mb-4 text-sm text-gray-600">
-        {{ __('Forgot your password? No problem. Just let us know your email address and we will email you a password reset link that will allow you to choose a new one.') }}
+    
+    <h3 class="mb-4 text-center">Recuperar Senha</h3>
+
+    {{-- Texto de instrução --}}
+    <div class="mb-4 text-secondary">
+        {{ __('Esqueceu sua senha? Sem problemas. Basta nos informar seu endereço de e-mail e enviaremos um link de redefinição de senha que permitirá que você escolha uma nova.') }}
     </div>
 
-    <!-- Session Status -->
-    <x-auth-session-status class="mb-4" :status="session('status')" />
+    {{-- Session Status (Mensagem de sucesso após envio) --}}
+    @if (session('status'))
+        <div class="alert alert-success mb-4" role="alert">
+            {{ session('status') }}
+        </div>
+    @endif
 
     <form method="POST" action="{{ route('password.email') }}">
         @csrf
 
-        <!-- Email Address -->
-        <div>
-            <x-input-label for="email" :value="__('Email')" />
-            <x-text-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required autofocus />
-            <x-input-error :messages="$errors->get('email')" class="mt-2" />
+        <div class="mb-3">
+            <label for="email" class="form-label">{{ __('Email') }}</label>
+            <input 
+                id="email" 
+                class="form-control @error('email') is-invalid @enderror" 
+                type="email" 
+                name="email" 
+                value="{{ old('email') }}" 
+                required 
+                autofocus 
+            />
+            
+            {{-- Mensagens de erro com Bootstrap --}}
+            @error('email')
+                <div class="invalid-feedback">
+                    {{ $message }}
+                </div>
+            @enderror
         </div>
 
-        <div class="flex items-center justify-end mt-4">
-            <x-primary-button>
-                {{ __('Email Password Reset Link') }}
-            </x-primary-button>
+        <div class="d-grid mt-4">
+            <button type="submit" class="btn btn-primary">
+                {{ __('Enviar Link de Redefinição de Senha por E-mail') }}
+            </button>
         </div>
     </form>
+    
 </x-guest-layout>

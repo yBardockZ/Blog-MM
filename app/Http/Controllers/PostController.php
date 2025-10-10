@@ -8,6 +8,7 @@ use App\Models\Tag;
 use App\Models\Category;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
+use App\Http\Requests\PostRequest;
 
 class PostController extends Controller
 {
@@ -50,8 +51,11 @@ class PostController extends Controller
 
     }
 
-    public function store(Request $request) {
-        $post = new Post();
+    public function store(PostRequest $request) {
+        $validated = $request->validated();
+
+
+        $post = new Post($validated);
 
         $post->title = $request->title;
         $post->content = $request->content;
@@ -72,8 +76,8 @@ class PostController extends Controller
 
         $post->save();
 
-        if ($request->tags) {
-            $post->tags()->attach($request->tags);
+        if (!empty($validated['tags'])) {
+            $post->tags()->attach($validated['tags']);
         }
         
         return redirect()->route('posts.index')->with('msg', 'Post criado com sucesso!');
@@ -109,19 +113,12 @@ class PostController extends Controller
         return view('posts.edit', ['post' => $post, 'tags' => $tags, 'categories' => $categories]);
     }
 
-    public function update(Request $request, $id) {
+    public function update(PostRequest $request, $id) {
+        $validated= $request->validated();
+
         $post = Post::where('id', $id)
             ->where('author_id', Auth::user()->id)
             ->firstOrFail();
-
-        $validatedData = $request->validate([
-        'title' => 'required|max:255',
-        'content' => 'required',
-        'category_id' => 'required|exists:categories,id',
-        'image' => 'nullable|image|max:2048', // Opcional: Nova imagem
-        'tags' => 'array',
-        'tags.*' => 'exists:tags,id',
-        ]);
 
         $post->title = $request->title;
         $post->content = $request->content;
@@ -137,7 +134,7 @@ class PostController extends Controller
             $post->image = $imageName;
         }
 
-        $post->update($validatedData);
+        $post->update($validated);
 
         $post->tags()->sync($request->tags);
 
