@@ -10,6 +10,7 @@
                 {{-- Título --}}
                 <header class="mb-4">
                     <h1 class="fw-bolder mb-1">{{ $post->title }}</h1>
+                    <p class="fw-bolder mb-2">Por: {{ $post->author->name }}</p>
                     <div class="text-muted fst-italic mb-2">
                         Postado em {{ $post->created_at->format('d/m/Y  H:i') }}
                     </div>
@@ -27,7 +28,7 @@
                 </figure>
 
                 {{-- Corpo do Post --}}
-                <section class="mb-5 fs-5">
+                <section class="mb-5 fs-5 text-break overflow-auto">
                     {!! nl2br(e($post->content)) !!}
                 </section>
             </article>

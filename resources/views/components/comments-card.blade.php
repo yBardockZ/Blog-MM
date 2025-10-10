@@ -10,29 +10,29 @@
 
         {{-- 1. VISUALIZAÇÃO DO COMENTÁRIO (Inicialmente visível) --}}
         <div class="comment-view-content" data-comment-id="{{ $comment->id }}">
-            <p class="card-text comment-text">
+            <p class="card-text comment-text text-break">
                 {{ $comment->content }}
             </p>
-
-            <div class="d-flex gap-2 mt-2">
-                {{-- BOTÃO DE EDITAR (Adicionado) --}}
-                <button type="button" class="btn btn-sm btn-outline-info p-1 border-0 btn-edit-comment"
-                    data-comment-id="{{ $comment->id }}">
-                    <i class="bi bi-pencil-square"></i>
-                </button>
-
-                {{-- SEU BOTÃO DE DELETAR (Já Existente) --}}
-                <form action="{{ route('comments.destroy', $comment->id) }}" method="POST" class="d-inline"
-                    onsubmit="return confirm('Tem certeza que deseja remover este comentário? Esta ação é irreversível.');">
-                    @csrf
-                    @method('DELETE')
-                    <button type="submit" class="btn btn-sm btn-outline-danger p-1 border-0">
-                        <i class="bi bi-trash-fill"></i>
+            @if(auth()->check() && auth()->user()->id === $comment->author_id || auth()->user()->id === $comment->post->author_id)
+                <div class="d-flex gap-2 mt-2">
+                    {{-- BOTÃO DE EDITAR (Adicionado) --}}
+                    <button type="button" class="btn btn-sm btn-outline-info p-1 border-0 btn-edit-comment"
+                        data-comment-id="{{ $comment->id }}">
+                        <i class="bi bi-pencil-square"></i>
                     </button>
-                </form>
-            </div>
-        </div>
 
+                    {{-- SEU BOTÃO DE DELETAR (Já Existente) --}}
+                    <form action="{{ route('comments.destroy', $comment->id) }}" method="POST" class="d-inline"
+                        onsubmit="return confirm('Tem certeza que deseja remover este comentário? Esta ação é irreversível.');">
+                        @csrf
+                        @method('DELETE')
+                        <button type="submit" class="btn btn-sm btn-outline-danger p-1 border-0">
+                            <i class="bi bi-trash-fill"></i>
+                        </button>
+                    </form>
+                </div>
+            @endif
+        </div>
         {{-- 2. FORMULÁRIO DE EDIÇÃO (Inicialmente Escondido) --}}
         <div class="comment-edit-form" data-comment-id="{{ $comment->id }}" style="display: none;">
             <form action="{{ route('comments.update', $comment) }}" method="POST">
