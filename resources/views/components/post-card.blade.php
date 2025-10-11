@@ -1,6 +1,9 @@
 <div class="col-md-6 mb-4">
-    <div class="card shadow-sm h-100">
-        {{-- Imagem de exemplo. Em um projeto real, você usaria {{ $post->image_url }} --}}
+    <div class="card shadow-sm h-100" id="post-card" 
+    data-aos="zoom-in"
+    data-aos-delay="{{$index * 100}}"
+    data-aos-duration="800">
+
         <img id = "post-card-image" src="{{ asset('/images/posts/'.$post->image) }}">
         
         <div class="card-body d-flex flex-column">

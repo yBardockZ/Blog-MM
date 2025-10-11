@@ -26,8 +26,8 @@
             <p>Nenhum post cadastrado</p>
         @endif
 
-        @foreach ($posts as $post)
-            @include('components.post-card', ['post' => $post])
+        @foreach ($posts as $index => $post)
+            @include('components.post-card', ['post' => $post, 'index' => $index])
         @endforeach
 
         {{-- PAGINAÇÃO --}}
