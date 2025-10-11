@@ -20,5 +20,7 @@ class CategorySeeder extends Seeder
         Category::factory()->create([
             'name' => 'Inovação'
         ]);
+
+        Category::factory()->count(8)->create();
     }
 }

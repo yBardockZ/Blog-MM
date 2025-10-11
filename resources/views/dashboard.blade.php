@@ -76,4 +76,9 @@
         @endforelse
     </div>
 
+    {{-- PAGINAÇÃO --}}
+    <div class="d-flex justify-content-center mt-5">
+        {{ $posts->withQueryString()->links('pagination::bootstrap-5') }}
+    </div>
+
 @endsection

@@ -26,10 +26,9 @@ class PostController extends Controller
                 ->orWhere('content', 'like', "%{$search}%");
             });
 
-            $posts = $query->paginate(10);
-        } else {
-            $posts = $query->paginate(10);
         }
+
+        $posts = $query->orderByDesc('created_at')->paginate(10)->withQueryString();
 
         return view('welcome', ['posts' => $posts, 'search' => $search]);
     }
@@ -95,7 +94,7 @@ class PostController extends Controller
             $query = Post::where('title', 'like', "%{$search}%")->where('author_id', $user->id);
         }
 
-        $posts = $query->latest()->paginate(10);
+        $posts = $query->latest()->paginate(10)->withQueryString();
 
         return view('dashboard', ['posts' => $posts, 'search' => $search]);
 
