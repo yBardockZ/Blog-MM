@@ -17,10 +17,9 @@
 
     <title>@yield('title')</title>
 </head>
-<body class="d-flex flex-column min-vh-100">
+<body class="d-flex flex-column min-vh-100" id="{{ request()->is('/') ? 'home' : 'inner-page' }}">
 
     @include('include.header')
-
    
     @if(session('msg'))
         <div class="container mt-3">
@@ -31,8 +30,12 @@
         </div>
     @endif
 
+    @if (View::hasSection('hero'))
+        @yield('hero')
+    @endif
 
-    <main class="container my-5 flex-grow-1">
+
+    <main class="container my-5 flex-grow-1 main-content">
         @yield('content')
     </main>
 

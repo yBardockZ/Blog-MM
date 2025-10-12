@@ -1,8 +1,7 @@
 <div class="col-md-6 mb-4">
     <div class="card shadow-sm h-100" id="post-card" 
     data-aos="zoom-in"
-    data-aos-delay="{{$index * 100}}"
-    data-aos-duration="800">
+    data-aos-delay="{{$index * 100}}">
 
         <img id = "post-card-image" src="{{ asset('/images/posts/'.$post->image) }}">
         

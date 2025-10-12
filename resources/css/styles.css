@@ -1,3 +1,104 @@
+/* Global */
+
+body, html {
+    margin: 0;
+    padding: 0;
+}
+
+#inner-page {
+  padding-top: 70px; /* só aplica nas páginas internas */
+}
+
+#home {
+  padding-top: 0;
+}
+
+/* Alpine.js - Previne flash de conteúdo não estilizado */
+[x-cloak] { 
+    display: none !important; 
+}
+
+/* Alpine.js - Animações */
+.animate-element {
+    transition: opacity 1s ease-out, transform 1s ease-out;
+}
+
+
+/* Header */
+
+/* NAVBAR TRANSPARENTE (no topo, sobre o banner) */
+.transparent-navbar {
+  background: transparent !important;
+  box-shadow: none !important;
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+  position: fixed; /* deixa fixo no topo da tela */
+  top: 0;
+  width: 100%;
+  z-index: 1000; /* garante que fique acima de tudo */
+}
+
+/* NAVBAR AO ROLAR */
+.navbar.scrolled {
+  background-color: rgba(0, 0, 0, 0.9) !important;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(6px); /* efeito moderno */
+}
+
+
+/* Welcome Banner */
+
+.hero-banner {
+    margin: 0 !important;
+    padding: 0 !important;
+    position: relative;
+    width: 100%;
+    height: 600px;
+    background-image: url('/public/images/Banner\ tech.png'); /* Altere para o caminho da sua imagem */
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.hero-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.45); /* escurece um pouco o banner */
+}
+
+.hero-content {
+    position: relative;
+    z-index: 2;
+    max-width: 800px;
+    color: white;
+}
+
+.input-group {
+    width: 800px;
+}
+
+/* Responsivo */
+@media (max-width: 768px) {
+    .hero-banner {
+        height: 350px;
+    }
+
+    .hero-content h1 {
+        font-size: 2rem;
+    }
+
+    .hero-content p {
+        font-size: 1rem;
+    }
+
+    .hero-content .input-group {
+        width: 80%;
+    }
+}
+
 /* Post Cards */
 
 #post-card {

@@ -33,7 +33,7 @@
     </div>
 
     <div class="row">
-        @forelse ($posts as $post)
+        @forelse ($posts as $index => $post)
                 @php
                     $dashboardActions = '
                     <div class="mt-auto d-flex justify-content-between align-items-center">
@@ -60,6 +60,7 @@
 
                 @include('components.post-card', [
                 'post' => $post,
+                'index' => $index,
                 'actions' => $dashboardActions
                 ])
         @empty
