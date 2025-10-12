@@ -20,7 +20,11 @@
 <body class="d-flex flex-column min-vh-100" id="{{ request()->is('/') ? 'home' : 'inner-page' }}">
 
     @include('include.header')
-   
+    
+    @if (View::hasSection('hero'))
+        @yield('hero')
+    @endif
+
     @if(session('msg'))
         <div class="container mt-3">
             <div class="alert alert-success alert-dismissible fade show" role="alert">
@@ -29,11 +33,6 @@
             </div>
         </div>
     @endif
-
-    @if (View::hasSection('hero'))
-        @yield('hero')
-    @endif
-
 
     <main class="container my-5 flex-grow-1 main-content">
         @yield('content')

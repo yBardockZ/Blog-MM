@@ -1,5 +1,9 @@
 /* Global */
 
+* {
+  font-family: var(--font-main);
+}
+
 body, html {
     margin: 0;
     padding: 0;
@@ -27,21 +31,26 @@ body, html {
 /* Header */
 
 /* NAVBAR TRANSPARENTE (no topo, sobre o banner) */
+.navbar {
+  background-color: #000 !important;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.4);
+  transition: background-color 0.3s ease;
+}
+
 .transparent-navbar {
   background: transparent !important;
   box-shadow: none !important;
   transition: background-color 0.3s ease, box-shadow 0.3s ease;
-  position: fixed; /* deixa fixo no topo da tela */
+  position: fixed;
   top: 0;
   width: 100%;
-  z-index: 1000; /* garante que fique acima de tudo */
+  z-index: 1000;
 }
 
-/* NAVBAR AO ROLAR */
 .navbar.scrolled {
   background-color: rgba(0, 0, 0, 0.9) !important;
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
-  backdrop-filter: blur(6px); /* efeito moderno */
+  backdrop-filter: blur(6px);
 }
 
 

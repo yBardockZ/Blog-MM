@@ -79,7 +79,7 @@ class PostController extends Controller
             $post->tags()->attach($validated['tags']);
         }
         
-        return redirect()->route('posts.index')->with('msg', 'Post criado com sucesso!');
+        return redirect()->route('dashboard')->with('msg', 'Post criado com sucesso!');
     }
 
     public function dashboard(Request $request) {
