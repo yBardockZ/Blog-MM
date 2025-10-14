@@ -15,37 +15,39 @@
             </p>
             
             {{-- Container único para TODOS os botões de ação --}}
-            <div class="d-flex align-items-center gap-2">
-                {{-- BOTÃO DE CURTIR (sempre visível) --}}
+            <div class="d-flex align-items-center justify-content-between">
+                {{-- BOTÃO DE CURTIR (alinhado à esquerda) --}}
                 <button
-                    class="like-button btn btn-sm border-0 p-1 d-flex align-items-center gap-1 {{ $comment->likes->contains('user_id', auth()->id()) ? 'liked text-danger' : 'text-secondary' }}"
+                    class="like-button {{ $comment->likes->contains('user_id', auth()->id()) ? 'liked' : '' }}"
                     data-likeable-id="{{ $comment->id }}" 
                     data-likeable-type="comment">
                     <i class="bi bi-heart{{ $comment->likes->contains('user_id', auth()->id()) ? '-fill' : '' }}"></i>
                     <span class="like-count">{{ $comment->likes->count() }}</span>
                 </button>
                 
-                {{-- BOTÕES DE EDITAR E DELETAR (apenas para autor do comentário ou dono do post) --}}
+                {{-- BOTÕES DE EDITAR E DELETAR (alinhados à direita) --}}
                 @auth
                     @if (auth()->user()->id === $comment->author_id || auth()->user()->id === $comment->post->author_id)
-                        {{-- BOTÃO DE EDITAR --}}
-                        <button type="button" 
-                                class="btn btn-sm btn-outline-info p-1 border-0 btn-edit-comment"
-                                data-comment-id="{{ $comment->id }}">
-                            <i class="bi bi-pencil-square"></i>
-                        </button>
-
-                        {{-- BOTÃO DE DELETAR --}}
-                        <form action="{{ route('comments.destroy', $comment->id) }}" 
-                              method="POST" 
-                              class="d-inline m-0"
-                              onsubmit="return confirm('Tem certeza que deseja remover este comentário? Esta ação é irreversível.');">
-                            @csrf
-                            @method('DELETE')
-                            <button type="submit" class="btn btn-sm btn-outline-danger p-1 border-0">
-                                <i class="bi bi-trash-fill"></i>
+                        <div class="d-flex align-items-center gap-2">
+                            {{-- BOTÃO DE EDITAR --}}
+                            <button type="button" 
+                                    class="btn btn-outline-info p-2 border-0 btn-edit-comment"
+                                    data-comment-id="{{ $comment->id }}">
+                                <i class="bi bi-pencil-square fs-5"></i>
                             </button>
-                        </form>
+
+                            {{-- BOTÃO DE DELETAR --}}
+                            <form action="{{ route('comments.destroy', $comment->id) }}" 
+                                  method="POST" 
+                                  class="d-inline m-0"
+                                  onsubmit="return confirm('Tem certeza que deseja remover este comentário? Esta ação é irreversível.');">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="btn btn-outline-danger p-2 border-0">
+                                    <i class="bi bi-trash-fill fs-5"></i>
+                                </button>
+                            </form>
+                        </div>
                     @endif
                 @endauth
             </div>
