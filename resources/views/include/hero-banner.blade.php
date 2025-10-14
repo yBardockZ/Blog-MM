@@ -3,7 +3,7 @@
     
     <div class="hero-content position-relative">
         
-        @if(!request('search'))
+        @if(!request('search') && !request('page'))
             {{-- COM ANIMAÇÃO - Apenas quando NÃO há busca --}}
             
             {{-- Título --}}

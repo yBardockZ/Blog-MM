@@ -14,8 +14,8 @@
                     <div class="text-muted fst-italic mb-2">
                         Postado em {{ $post->created_at->format('d/m/Y  H:i') }}
                     </div>
-
-                    {{-- Tags (Você implementará isso depois) --}}
+                    
+                {{-- Tags --}}
                     @foreach ($post->tags as $tag)
                         <span class="badge bg-primary text-decoration-none link-light me-1">{{ $tag->name }}</span>
                     @endforeach
@@ -26,6 +26,8 @@
                     <img class="img-fluid rounded" src="{{ asset('/images/posts/'.$post->image) }}"
                         alt="{{ $post->title }}" />
                 </figure>
+
+                <hr>
 
                 {{-- Corpo do Post --}}
                 <section class="mb-5 fs-5 text-break overflow-auto">

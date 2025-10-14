@@ -50,3 +50,46 @@ Alpine.start();
     window.addEventListener('scroll', updateNavbarOnScroll, { passive: true });
   });
 })();
+
+document.addEventListener('DOMContentLoaded', () => {
+    const tokenMeta = document.querySelector('meta[name="csrf-token"]');
+    const token = tokenMeta ? tokenMeta.content : '';
+
+    document.querySelectorAll('.like-button').forEach(button => {
+        button.addEventListener('click', async (e) => {
+            e.preventDefault();
+
+            const likeableId = button.dataset.likeableId;
+            const likeableType = button.dataset.likeableType; // <— importante!
+
+            try {
+                const response = await fetch(`/like/toggle`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRF-TOKEN': token,
+                        'Accept': 'application/json'
+                    },
+                    body: JSON.stringify({ 
+                        likeable_id: likeableId,
+                        likeable_type: likeableType
+                    })
+                });
+
+                const data = await response.json();
+
+                if (data.status) {
+                    const count = button.querySelector('.like-count');
+                    count.textContent = data.likes_count;
+
+                    button.classList.toggle('liked', data.status === 'liked');
+                }
+
+            } catch (error) {
+                console.error('Erro ao enviar like:', error);
+            }
+        });
+    });
+});
+
+
