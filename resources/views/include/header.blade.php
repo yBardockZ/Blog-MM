@@ -4,7 +4,7 @@
         {{ request()->is('/') ? 'transparent-navbar' : 'bg-dark shadow-sm' }}">
         <div class="container">
             <a class="navbar-brand" href="{{ url('/') }}">
-                Laravel Blog
+                MM Blog
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
                 aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -14,10 +14,6 @@
                 {{-- Links de Navegação --}}
                 {{-- GRUPO 1: LINKS PRINCIPAIS (Esquerda) --}}
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                    <li class="nav-item">
-                        <a class="nav-link {{ request()->routeIs('posts.index') ? 'active' : '' }}" aria-current="page"
-                            href="{{ url('/') }}">Home</a>
-                    </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#">Contato</a>
                     </li>
