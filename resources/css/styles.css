@@ -64,7 +64,6 @@ html {
     width: 100%;
     height: 600px;
     background-image: url('/public/images/Banner\ tech.png');
-    /* Altere para o caminho da sua imagem */
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
@@ -78,7 +77,6 @@ html {
     position: absolute;
     inset: 0;
     background: rgba(0, 0, 0, 0.45);
-    /* escurece um pouco o banner */
 }
 
 .hero-content {
@@ -215,6 +213,7 @@ html {
 /* ====== Fim do Botão de Like moderno ====== */
 
 /* SHOW VIEW */
+
 .post-content {
     line-height: 1.8;
     color: #333;

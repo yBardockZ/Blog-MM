@@ -71,15 +71,26 @@
 
                     {{-- Compartilhar --}}
                     <div class="d-flex gap-2">
-                        <button class="btn btn-outline-primary btn-sm" title="Compartilhar no Facebook">
+                        <a href="https://www.facebook.com/sharer/sharer.php?u={{ urlencode(url()->current()) }}"
+                        target="_blank"
+                        class="btn btn-outline-primary btn-sm"
+                        title="Compartilhar no Facebook">
                             <i class="bi bi-facebook"></i>
-                        </button>
-                        <button class="btn btn-outline-info btn-sm" title="Compartilhar no Twitter">
+                        </a>
+
+                        <a href="https://twitter.com/intent/tweet?url={{ urlencode(url()->current()) }}&text={{ urlencode($post->title) }}"
+                        target="_blank"
+                        class="btn btn-outline-info btn-sm" 
+                        title="Compartilhar no X">
                             <i class="bi bi-twitter-x"></i>
-                        </button>
-                        <button class="btn btn-outline-success btn-sm" title="Compartilhar no WhatsApp">
+                        </a>
+
+                        <a href="https://wa.me/send?text={{ urlencode($post->title) }} - {{ urlencode(url()->current()) }}"
+                        target="_blank" 
+                        class="btn btn-outline-success btn-sm" 
+                        title="Compartilhar no WhatsApp">
                             <i class="bi bi-whatsapp"></i>
-                        </button>
+                        </a>
                         <button class="btn btn-outline-secondary btn-sm" title="Copiar link" onclick="copyLink()">
                             <i class="bi bi-link-45deg"></i>
                         </button>
