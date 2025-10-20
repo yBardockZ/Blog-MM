@@ -54,6 +54,17 @@ html {
     backdrop-filter: blur(6px);
 }
 
+@media (max-width: 991px) {
+    @media (max-width: 991px) {
+
+        /* Fundo escuro sempre que o collapse estiver expandindo ou aberto */
+        .transparent-navbar:has(.navbar-collapse.show),
+        .transparent-navbar:has(.navbar-collapse.collapsing) {
+            background-color: rgba(0, 0, 0, 0.95) !important;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+        }
+    }
+}
 
 /* Welcome Banner */
 
