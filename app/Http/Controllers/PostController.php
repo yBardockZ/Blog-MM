@@ -9,6 +9,8 @@ use App\Models\Category;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use App\Http\Requests\PostRequest;
+use Intervention\Image\ImageManager;
+use Intervention\Image\Drivers\Gd\Driver;
 
 class PostController extends Controller
 {
@@ -68,7 +70,7 @@ class PostController extends Controller
             $requestImage = $request->image;
             $imageName = $this->imageNameGeneration($requestImage);
 
-            $requestImage->move(public_path('images/posts'), $imageName);
+            $this->imageSave($imageName, $requestImage);
 
             $post->image = $imageName;
         }
@@ -127,8 +129,13 @@ class PostController extends Controller
         if ($request->hasFile('image')) {
             $requestImage = $request->image;
             $imageName = $this->imageNameGeneration($requestImage);
+            
+            if (Storage::disk('public')->exists('images/posts/' . $post->image)) {
+                Storage::disk('public')->delete('images/posts/' . $post->image);
+                Storage::disk('public')->delete('images/posts/thumbnails/' . $post->image);
+            }
 
-            $requestImage->move(public_path('images/posts'), $imageName);
+            $this->imageSave($imageName, $requestImage);
 
             $post->image = $imageName;
         }
@@ -146,6 +153,11 @@ class PostController extends Controller
             ->firstOrFail();
 
         if ($post->image && Storage::disk('public')->exists('images/posts/' . $post->image)) {
+
+            if (Storage::disk('public')->exists('images/posts/thumbnails/' . $post->image)) {
+                Storage::disk('public')->delete('images/posts/thumbnails/' . $post->image);
+            }
+
             Storage::disk('public')->delete('images/posts/' . $post->image);
         }
 
@@ -160,6 +172,31 @@ class PostController extends Controller
         $imageName = md5($image->getClientOriginalName() . time()) . $imageExtension;
 
         return $imageName;
+    }
+
+    private function imageSave($imageName, $requestImage) {
+        $destinationPath = public_path('images/posts');
+        $thumbnailPath = public_path('images/posts/thumbnails');
+
+        
+            if (!file_exists($destinationPath)) {
+                mkdir($destinationPath, 0755, true);
+            }
+            if (!file_exists($destinationPath . '/thumbnails')) {
+                mkdir($destinationPath . '/thumbnails', 0755, true);
+            }
+
+            $manager = new ImageManager(new Driver());
+
+            // Imagem principal
+            $image = $manager->read($requestImage);
+            $image->scale(width: 1200)
+                ->save($destinationPath . '/' . $imageName, quality: 90);
+
+            // Thumbnail
+            $thumbnail = $manager->read($requestImage);
+            $thumbnail->cover(800, 500)
+                    ->save($thumbnailPath . '/' . $imageName, quality: 85);
     }
 
 }

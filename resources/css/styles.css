@@ -123,26 +123,39 @@ html {
 /* Post Cards */
 
 #post-card {
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
 }
-
 #post-card:hover {
-    transform: translateY(-5px) scale(1.02);
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+  transform: translateY(-5px) scale(1.02);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.2);
 }
 
-#post-card-image {
+#post-card-image,
+.card-img-top {
     height: 200px;
+    width: 100%;
     object-fit: cover;
+    object-position: center;
+}
+
+#post-card .card-body {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
 }
 
 #text-truncate-lines {
-    display: -webkit-box;
-    -webkit-line-clamp: 3;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    word-break: break-word;
+  display: -webkit-box;
+  line-clamp: 3;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  word-break: break-word;
+  flex-grow: 1;
 }
 
 /* ====== Botão de Like moderno ====== */

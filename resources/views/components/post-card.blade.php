@@ -1,7 +1,8 @@
 <div class="col-md-6 mb-4">
     <div class="card shadow-sm h-100" id="post-card" data-aos="zoom-in" data-aos-delay="{{ $index * 100 }}">
 
-        <img id = "post-card-image" src="{{ asset('/images/posts/' . $post->image) }}">
+        <img id = "post-card-image" src="{{ $post->image ? asset('/images/posts/thumbnails/'.$post->image) : 
+        'https://via.placeholder.com/400x200/6c757d/ffffff?text=Sem+Imagem' }}">
 
         <div class="card-body d-flex flex-column">
             {{-- Título da Postagem --}}
