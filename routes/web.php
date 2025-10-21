@@ -7,6 +7,9 @@ use App\Http\Controllers\LikeController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', [PostController::class, 'index'])->name('posts.index');
+Route::get('/contact', function () {
+    return view('contact');
+})->name('contact');
 
 Route::middleware('auth')->group(function () {
     Route::get('/posts/create', [PostController::class, 'create'])->name('posts.create');

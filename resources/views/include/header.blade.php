@@ -15,7 +15,7 @@
                 {{-- GRUPO 1: LINKS PRINCIPAIS (Esquerda) --}}
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Contato</a>
+                        <a class="nav-link" href="{{ route('contact') }}">Contato</a>
                     </li>
                 </ul>
 

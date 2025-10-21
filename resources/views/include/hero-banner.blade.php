@@ -13,7 +13,7 @@
                 <h1 x-show="show"
                     x-transition.opacity.duration.1000ms
                     style="transition: opacity 1s ease-out;">
-                    Bem-vindo ao Blog!
+                    Bem-vindo ao MM!
                 </h1>
             </div>
             

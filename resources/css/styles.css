@@ -123,14 +123,15 @@ html {
 /* Post Cards */
 
 #post-card {
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
 }
+
 #post-card:hover {
-  transform: translateY(-5px) scale(1.02);
-  box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+    transform: translateY(-5px) scale(1.02);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
 }
 
 #post-card-image,
@@ -148,14 +149,14 @@ html {
 }
 
 #text-truncate-lines {
-  display: -webkit-box;
-  line-clamp: 3;
-  -webkit-line-clamp: 3;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  word-break: break-word;
-  flex-grow: 1;
+    display: -webkit-box;
+    line-clamp: 3;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    word-break: break-word;
+    flex-grow: 1;
 }
 
 /* ====== Botão de Like moderno ====== */
@@ -271,4 +272,44 @@ html {
 
 .list-group-item:hover {
     background-color: #f8f9fa;
+}
+
+/* View Contact */
+.contact-card {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.contact-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15) !important;
+}
+
+.contact-card .card-body {
+    position: relative;
+    overflow: hidden;
+}
+
+.contact-card .card-body::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(108, 117, 125, 0.05) 0%, transparent 70%);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.contact-card:hover .card-body::before {
+    opacity: 1;
+}
+
+.avatar-placeholder {
+    box-shadow: 0 10px 30px rgba(102, 126, 234, 0.3);
+    transition: transform 0.3s ease;
+}
+
+.avatar-placeholder:hover {
+    transform: scale(1.05);
 }

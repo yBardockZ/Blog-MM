@@ -1,6 +1,6 @@
 @extends('layouts.main')
 
-@section('title', 'Meu blog laravel')
+@section('title', 'Blog MM')
 
 @section('hero')
     @include('include.hero-banner')
