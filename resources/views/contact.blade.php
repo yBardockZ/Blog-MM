@@ -16,7 +16,7 @@
             </div>
 
             <div class="row g-4">
-                {{-- Cards de Contato --}}
+                {{-- GitHub --}}
                 <div class="col-md-6 col-lg-4">
                     <div class="card shadow-sm h-100 border-0 contact-card">
                         <div class="card-body text-center p-4">
@@ -27,8 +27,9 @@
                             <p class="card-text text-muted small mb-3">
                                 Confira meus projetos e repositórios
                             </p>
-                            <a href="https://github.com/SEU_USUARIO" 
-                               target="_blank" 
+                            <a href="https://github.com/yBardockZ" 
+                               target="_blank"
+                               rel="noopener noreferrer"
                                class="btn btn-outline-dark btn-sm">
                                 <i class="bi bi-box-arrow-up-right me-1"></i>
                                 Visitar Perfil
@@ -37,6 +38,7 @@
                     </div>
                 </div>
 
+                {{-- LinkedIn --}}
                 <div class="col-md-6 col-lg-4">
                     <div class="card shadow-sm h-100 border-0 contact-card">
                         <div class="card-body text-center p-4">
@@ -47,8 +49,9 @@
                             <p class="card-text text-muted small mb-3">
                                 Conecte-se comigo profissionalmente
                             </p>
-                            <a href="https://linkedin.com/in/SEU_USUARIO" 
-                               target="_blank" 
+                            <a href="https://www.linkedin.com/in/thalles-leopoldino" 
+                               target="_blank"
+                               rel="noopener noreferrer"
                                class="btn btn-outline-primary btn-sm">
                                 <i class="bi bi-box-arrow-up-right me-1"></i>
                                 Conectar
@@ -57,6 +60,7 @@
                     </div>
                 </div>
 
+                {{-- WhatsApp --}}
                 <div class="col-md-6 col-lg-4">
                     <div class="card shadow-sm h-100 border-0 contact-card">
                         <div class="card-body text-center p-4">
@@ -67,8 +71,9 @@
                             <p class="card-text text-muted small mb-3">
                                 Fale comigo diretamente
                             </p>
-                            <a href="https://wa.me/5582999999999?text=Olá!%20Vim%20através%20do%20seu%20portfólio" 
-                               target="_blank" 
+                            <a href="https://wa.me/5521965615548?text=Ol%C3%A1!%20Vim%20atrav%C3%A9s%20do%20seu%20portf%C3%B3lio" 
+                               target="_blank"
+                               rel="noopener noreferrer"
                                class="btn btn-outline-success btn-sm">
                                 <i class="bi bi-chat-dots me-1"></i>
                                 Enviar Mensagem
@@ -77,7 +82,7 @@
                     </div>
                 </div>
 
-                {{-- Informações Adicionais --}}
+                {{-- E-mail --}}
                 <div class="col-md-6 col-lg-4">
                     <div class="card shadow-sm h-100 border-0 contact-card">
                         <div class="card-body text-center p-4">
@@ -88,7 +93,7 @@
                             <p class="card-text text-muted small mb-3">
                                 Mande uma mensagem por e-mail
                             </p>
-                            <a href="mailto:seu.email@exemplo.com" 
+                            <a href="mailto:thalles_leopoldino@outlook.com" 
                                class="btn btn-outline-danger btn-sm">
                                 <i class="bi bi-envelope me-1"></i>
                                 Enviar E-mail
@@ -97,42 +102,40 @@
                     </div>
                 </div>
 
+                {{-- Portfólio (Em Breve) --}}
                 <div class="col-md-6 col-lg-4">
                     <div class="card shadow-sm h-100 border-0 contact-card">
                         <div class="card-body text-center p-4">
                             <div class="mb-3">
-                                <i class="bi bi-globe display-3 text-info"></i>
+                                <i class="bi bi-globe display-3 text-secondary"></i>
                             </div>
                             <h5 class="card-title mb-2">Portfólio</h5>
                             <p class="card-text text-muted small mb-3">
                                 Veja mais sobre meu trabalho
                             </p>
-                            <a href="https://seu-portfolio.com" 
-                               target="_blank" 
-                               class="btn btn-outline-info btn-sm">
-                                <i class="bi bi-box-arrow-up-right me-1"></i>
-                                Visitar Site
-                            </a>
+                            <span class="btn btn-outline-secondary btn-sm disabled">
+                                <i class="bi bi-clock me-1"></i>
+                                Em Breve
+                            </span>
                         </div>
                     </div>
                 </div>
 
+                {{-- Currículo (Em Breve) --}}
                 <div class="col-md-6 col-lg-4">
                     <div class="card shadow-sm h-100 border-0 contact-card">
                         <div class="card-body text-center p-4">
                             <div class="mb-3">
-                                <i class="bi bi-file-earmark-person display-3 text-warning"></i>
+                                <i class="bi bi-file-earmark-person display-3 text-secondary"></i>
                             </div>
                             <h5 class="card-title mb-2">Currículo</h5>
                             <p class="card-text text-muted small mb-3">
                                 Baixe meu currículo completo
                             </p>
-                            <a href="{{ asset('files/curriculo.pdf') }}" 
-                               download 
-                               class="btn btn-outline-warning btn-sm">
-                                <i class="bi bi-download me-1"></i>
-                                Download CV
-                            </a>
+                            <span class="btn btn-outline-secondary btn-sm disabled">
+                                <i class="bi bi-clock me-1"></i>
+                                Em Breve
+                            </span>
                         </div>
                     </div>
                 </div>
@@ -155,21 +158,28 @@
                             <div class="d-flex justify-content-center gap-3 mt-3">
                                 <a href="https://github.com/yBardockZ" 
                                    target="_blank" 
-                                   class="text-dark fs-4">
+                                   rel="noopener noreferrer"
+                                   class="text-dark fs-4"
+                                   title="GitHub">
                                     <i class="bi bi-github"></i>
                                 </a>
                                 <a href="https://www.linkedin.com/in/thalles-leopoldino" 
                                    target="_blank" 
-                                   class="text-primary fs-4">
+                                   rel="noopener noreferrer"
+                                   class="text-primary fs-4"
+                                   title="LinkedIn">
                                     <i class="bi bi-linkedin"></i>
                                 </a>
-                                <a href="https://wa.me/5521965615548?text=Olá!%20Vim%20através%20do%20seu%20portfólio" 
+                                <a href="https://wa.me/5521965615548?text=Ol%C3%A1!%20Vim%20atrav%C3%A9s%20do%20seu%20portf%C3%B3lio" 
                                    target="_blank" 
-                                   class="text-success fs-4">
+                                   rel="noopener noreferrer"
+                                   class="text-success fs-4"
+                                   title="WhatsApp">
                                     <i class="bi bi-whatsapp"></i>
                                 </a>
                                 <a href="mailto:thalles_leopoldino@outlook.com" 
-                                   class="text-danger fs-4">
+                                   class="text-danger fs-4"
+                                   title="E-mail">
                                     <i class="bi bi-envelope"></i>
                                 </a>
                             </div>
@@ -213,19 +223,21 @@
                     Estou disponível para freelances, projetos colaborativos e oportunidades full-time.
                 </p>
                 <div class="d-flex flex-wrap justify-content-center gap-3">
-                    <a href="https://wa.me/5521965615548?text=Olá!%20Tenho%20uma%20proposta" 
+                    <a href="https://wa.me/5521965615548?text=Ol%C3%A1!%20Tenho%20uma%20proposta" 
                        target="_blank" 
+                       rel="noopener noreferrer"
                        class="btn btn-success">
                         <i class="bi bi-whatsapp me-2"></i>
                         Falar no WhatsApp
                     </a>
-                    <a href="mailto:seu.email@exemplo.com" 
+                    <a href="mailto:thalles_leopoldino@outlook.com" 
                        class="btn btn-primary">
                         <i class="bi bi-envelope me-2"></i>
                         Enviar E-mail
                     </a>
                     <a href="https://www.linkedin.com/in/thalles-leopoldino" 
                        target="_blank" 
+                       rel="noopener noreferrer"
                        class="btn btn-outline-primary">
                         <i class="bi bi-linkedin me-2"></i>
                         Conectar no LinkedIn

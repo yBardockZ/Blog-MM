@@ -75,6 +75,11 @@ document.addEventListener('DOMContentLoaded', () => {
                         likeable_type: likeableType
                     })
                 });
+                
+                if (response.status === 401 || response.redirected) {
+                    window.location.href = '/login';
+                    return;
+                }
 
                 const data = await response.json();
 

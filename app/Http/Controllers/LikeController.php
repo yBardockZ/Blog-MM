@@ -10,7 +10,7 @@ use App\Models\Like;
 
 class LikeController extends Controller
 {
-
+                            
     public function toggle(Request $request) {
 
         $user = Auth::user();
