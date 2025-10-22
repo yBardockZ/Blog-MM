@@ -31,5 +31,7 @@ class PostSeeder extends Seeder
             'author_id' => 1,
             'category_id' => 2
         ]);
+
+        Post::factory()->count(18)->create();
     }
 }

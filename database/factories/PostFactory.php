@@ -25,7 +25,7 @@ class PostFactory extends Factory
             'title' => $title,
             'published' => fake()->boolean(50),
             'content' => fake()->paragraphs(5, true),
-            'image' => fake()->imageUrl(),
+            'image' => 'post2.png',
             'created_at' => fake()->dateTimeBetween('-1 year', 'now'),
             'updated_at' => now(),
         ];

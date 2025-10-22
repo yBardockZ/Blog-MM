@@ -17,5 +17,7 @@ class TagSeeder extends Seeder
         Tag::factory()->create([
             'name' => 'Java'
         ]);
+
+        Tag::factory()->count(18)->create();
     }
 }
