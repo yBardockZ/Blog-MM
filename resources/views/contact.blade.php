@@ -132,10 +132,12 @@
                             <p class="card-text text-muted small mb-3">
                                 Baixe meu currículo completo
                             </p>
-                            <span class="btn btn-outline-secondary btn-sm disabled">
-                                <i class="bi bi-clock me-1"></i>
-                                Em Breve
-                            </span>
+                            <a href="{{ asset('files/curriculo.pdf') }}" 
+                               download 
+                               class="btn btn-outline-warning btn-sm">
+                            <i class="bi bi-download me-1"></i>
+                            Download CV
+                        </a>
                         </div>
                     </div>
                 </div>

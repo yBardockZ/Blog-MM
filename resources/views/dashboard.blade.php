@@ -72,6 +72,9 @@
                         Você ainda não publicou nenhum post.
                     @endif
                 </div>
+                <a href="{{ route('posts.create') }}" class="btn btn-primary mt-3 mt-md-0">
+                        <i class="bi bi-plus-circle"></i> Criar Novo Post
+                </a>
             </div>
             
         @endforelse
