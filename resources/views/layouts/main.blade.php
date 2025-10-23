@@ -14,6 +14,9 @@
     {{-- NOVO: Bootstrap Icons CSS --}}
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 
+    {{-- PRELOAD da imagem do banner --}}
+    <link rel="preload" as="image" href="{{ asset('images/Banner tech.png') }}">
+
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 
     <title>@yield('title')</title>
