@@ -1,4 +1,5 @@
-<section class="hero-banner container-fluid p-0 d-flex flex-column justify-content-center align-items-center text-center text-light">
+<section class="hero-banner container-fluid p-0 d-flex flex-column justify-content-center align-items-center text-center text-light"
+    style="background-image: url('{{ asset('images/banner-tech.png') }}');">
     <div class="hero-overlay"></div>
     
     <div class="hero-content position-relative">
