@@ -64,20 +64,19 @@ WORKDIR /var/www/html
 # Copia o build final do Laravel
 COPY --from=php-builder /var/www/html ./
 
-# Copia APENAS os arquivos built do Vite (mantendo a estrutura)
+# Copia o build final do Laravel + assets do Vite
+COPY --from=php-builder /var/www/html ./ 
 COPY --from=vite-builder /app/public/build ./public/build
-COPY --from=vite-builder /app/public/hot ./public/hot
 
 # Corrige permissões
-RUN chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cache
-RUN chmod -R 775 /var/www/html/storage /var/www/html/bootstrap/cache
+RUN chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cache \
+    && chmod -R 775 /var/www/html/storage /var/www/html/bootstrap/cache
 
-# Expor a porta
 EXPOSE 8000
 
-# Comando de inicialização MELHORADO
-CMD sh -c "php artisan config:cache && \ 
-           php artisan route:cache && \ 
-           php artisan view:cache && \ 
-           php artisan migrate --force && \ 
-           php artisan serve --host=0.0.0.0 --port=8000"
+# Inicia com cache e servidor
+CMD php artisan config:cache && \
+    php artisan route:cache && \
+    php artisan view:cache && \
+    php artisan migrate --force && \
+    php artisan serve --host=0.0.0.0 --port=8000
