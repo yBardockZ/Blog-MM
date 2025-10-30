@@ -116,7 +116,7 @@ RUN ln -sf /etc/nginx/sites-available/default /etc/nginx/sites-enabled/default
 EXPOSE 80
 
 # Script de inicialização
-COPY docker/start.sh /usr/local/bin/start.sh
+COPY docker/start-render.sh /usr/local/bin/start.sh
 RUN chmod +x /usr/local/bin/start.sh \
     && sed -i 's/\r$//' /usr/local/bin/start.sh  # Remove \r do Windows
 
