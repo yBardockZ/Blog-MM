@@ -64,6 +64,8 @@ RUN php artisan key:generate --ansi
 # Build do Vite
 RUN npm run build
 
+RUN ls -la public/build || echo "⚠️ Build não encontrado!"
+
 # Agora SIM remover dependências de dev
 RUN composer install --no-dev --optimize-autoloader --classmap-authoritative --ansi --no-interaction
 
@@ -99,8 +101,9 @@ RUN apt-get update && apt-get install -y \
 
 WORKDIR /var/www/html
 
-# Copiar aplicação buildada
-COPY --from=builder /var/www/html .
+# Copiar aplicação Laravel e build do Vite
+COPY --from=builder /var/www/html ./
+COPY --from=builder /var/www/html/public/build ./public/build
 
 # COPIAR CONFIGURAÇÃO PHP CUSTOMIZADA
 COPY docker/php/custom.ini /usr/local/etc/php/conf.d/custom.ini
