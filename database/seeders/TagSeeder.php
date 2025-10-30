@@ -2,10 +2,8 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
-use Illuminate\Database\Seeder;
-
 use App\Models\Tag;
+use Illuminate\Database\Seeder;
 
 class TagSeeder extends Seeder
 {
@@ -14,10 +12,21 @@ class TagSeeder extends Seeder
      */
     public function run(): void
     {
-        Tag::factory()->create([
-            'name' => 'Java'
-        ]);
+        $tags = [
+            'Java',
+            'PHP',
+            'Laravel',
+            'Spring',
+            'MySQL',
+            'JavaScript',
+            'Vue.js',
+            'Bootstrap',
+            'Alpine.js',
+            'Git',
+        ];
 
-        Tag::factory()->count(18)->create();
+        foreach ($tags as $tag) {
+            Tag::firstOrCreate(['name' => $tag]);
+        }
     }
 }

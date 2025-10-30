@@ -1,82 +1,123 @@
-# ==============================================
-# Etapa 1 — Build PHP + dependências Composer
-# ==============================================
-FROM php:8.3-fpm AS php-builder
+# ================================
+# Etapa 1 — Build do Laravel + Vite
+# ================================
+FROM php:8.2-fpm AS builder
 
-# Instala dependências do sistema
+# Instalar dependências do sistema
 RUN apt-get update && apt-get install -y \
-    git curl zip unzip libpng-dev libjpeg-dev libfreetype6-dev libpq-dev \
+    git \
+    curl \
+    zip \
+    unzip \
+    libpng-dev \
+    libjpeg-dev \
+    libfreetype6-dev \
+    libonig-dev \
+    libxml2-dev \
+    libzip-dev \
+    libicu-dev \
     && docker-php-ext-configure gd --with-freetype --with-jpeg \
-    && docker-php-ext-install pdo pdo_pgsql gd
+    && docker-php-ext-install pdo pdo_mysql gd zip mbstring exif pcntl bcmath intl \
+    && apt-get clean && rm -rf /var/lib/apt/lists/*
+
+# Instalar Node.js 20.x (versão LTS)
+RUN curl -fsSL https://deb.nodesource.com/setup_20.x | bash - \
+    && apt-get install -y nodejs \
+    && apt-get clean && rm -rf /var/lib/apt/lists/*
 
 # Instalar Composer
-COPY --from=composer:2.7 /usr/bin/composer /usr/bin/composer
+COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
 
-# Define o diretório de trabalho
 WORKDIR /var/www/html
 
-# Copia os arquivos do Laravel (primeiro só os necessários para composer)
+# Copiar APENAS arquivos de dependências primeiro
 COPY composer.json composer.lock ./
-RUN composer install --no-dev --optimize-autoloader --no-scripts
 
-# Copia o restante do código
-COPY . .
+# Instalar dependências (SEM --no-dev ainda)
+RUN composer install --no-scripts --no-autoloader --ansi --no-interaction
 
-# Gera cache de configuração (AGUARDA as variáveis de ambiente)
-RUN php artisan config:clear
-
-# ==============================================
-# Etapa 2 — Build do frontend com Vite
-# ==============================================
-FROM node:20 AS vite-builder
-
-WORKDIR /app
-
-# Copia arquivos do package.json primeiro (para cache de camadas)
+# Copiar arquivos do Node
 COPY package.json package-lock.json* ./
-RUN npm install
+RUN npm ci
 
-# Copia o restante e faz o build
+# Agora copiar TODO o projeto
 COPY . .
-COPY --from=php-builder /var/www/html/vite.config.js ./
+
+# Gerar autoload completo
+RUN composer dump-autoload --optimize --classmap-authoritative
+
+# Criar arquivo .env se não existir (usa .env.example ou cria vazio)
+RUN if [ -f .env.example ]; then \
+        cp .env.example .env; \
+    else \
+        touch .env && \
+        echo "APP_NAME=Laravel" >> .env && \
+        echo "APP_ENV=production" >> .env && \
+        echo "APP_DEBUG=false" >> .env && \
+        echo "APP_KEY=" >> .env; \
+    fi
+
+# Gerar chave
+RUN php artisan key:generate --ansi
+
+# Build do Vite
 RUN npm run build
 
-# ==============================================
-# Etapa 3 — Imagem final
-# ==============================================
-FROM php:8.3-fpm
+# Agora SIM remover dependências de dev
+RUN composer install --no-dev --optimize-autoloader --classmap-authoritative --ansi --no-interaction
 
-# Instalar dependências necessárias para execução
+# Criar diretórios necessários
+RUN mkdir -p storage/framework/{sessions,views,cache} \
+    && mkdir -p storage/logs \
+    && mkdir -p bootstrap/cache
+
+# Limpar cache anterior
+RUN php artisan optimize:clear || true
+
+# Otimizar Laravel (pode falhar se .env estiver incompleto, por isso || true)
+RUN php artisan config:cache || true
+RUN php artisan route:cache || true
+RUN php artisan view:cache || true
+
+# ================================
+# Etapa 2 — Nginx + PHP-FPM
+# ================================
+FROM php:8.2-fpm
+
+# Instalar extensões necessárias
 RUN apt-get update && apt-get install -y \
-    libpng-dev libjpeg-dev libfreetype6-dev libpq-dev nginx \
+    nginx \
+    libpng-dev \
+    libjpeg-dev \
+    libfreetype6-dev \
+    libzip-dev \
     && docker-php-ext-configure gd --with-freetype --with-jpeg \
-    && docker-php-ext-install pdo pdo_pgsql gd
+    && docker-php-ext-install pdo pdo_mysql gd zip \
+    && apt-get clean && rm -rf /var/lib/apt/lists/*
 
-# Instalar Composer para comandos adicionais
-COPY --from=composer:2.7 /usr/bin/composer /usr/bin/composer
-
-# Configurar Nginx (opcional)
-COPY docker/nginx.conf /etc/nginx/sites-available/default
-
-# Diretório de trabalho
 WORKDIR /var/www/html
 
-# Copia o build final do Laravel
-COPY --from=php-builder /var/www/html ./
+# Copiar aplicação buildada
+COPY --from=builder /var/www/html .
 
-# Copia o build final do Laravel + assets do Vite
-COPY --from=php-builder /var/www/html ./ 
-COPY --from=vite-builder /app/public/build ./public/build
+# COPIAR CONFIGURAÇÃO PHP CUSTOMIZADA
+COPY docker/php/custom.ini /usr/local/etc/php/conf.d/custom.ini
 
-# Corrige permissões
-RUN chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cache \
-    && chmod -R 775 /var/www/html/storage /var/www/html/bootstrap/cache
+# Configurar permissões
+RUN chown -R www-data:www-data /var/www/html \
+    && chmod -R 775 /var/www/html/storage \
+    && chmod -R 775 /var/www/html/bootstrap/cache
 
-EXPOSE 8000
+# Configurar Nginx
+COPY docker/nginx/default.conf /etc/nginx/sites-available/default
+RUN ln -sf /etc/nginx/sites-available/default /etc/nginx/sites-enabled/default
 
-# Inicia com cache e servidor
-CMD php artisan config:cache && \
-    php artisan route:cache && \
-    php artisan view:cache && \
-    php artisan migrate --force && \
-    php artisan serve --host=0.0.0.0 --port=8000
+# Expor porta
+EXPOSE 80
+
+# Script de inicialização
+COPY docker/start.sh /usr/local/bin/start.sh
+RUN chmod +x /usr/local/bin/start.sh \
+    && sed -i 's/\r$//' /usr/local/bin/start.sh  # Remove \r do Windows
+
+CMD ["/usr/local/bin/start.sh"]
