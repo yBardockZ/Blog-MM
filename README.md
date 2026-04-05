@@ -1,6 +1,8 @@
 # Blog-MM
 
+
 Blog desenvolvido com **Laravel 12**, **Tailwind CSS 4**, **Alpine.js** e **Vite**, com sistema de autenticação, CRUD de posts, comentários, likes, categorias e tags.
+
 
 ## Tech Stack
 
